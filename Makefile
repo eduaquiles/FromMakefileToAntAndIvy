@@ -18,7 +18,7 @@ run-tests: tests-jar
 
 compile-tests: junit src-jar
 	mkdir -p tests-target
-	javac -cp src/*:target/*:lib/* -d tests-target test/HelloWorldTest.java
+	javac -cp target/*:lib/* -d tests-target test/HelloWorldTest.java
 
 tests-jar: compile-tests
 	jar cvf tests-target/HelloWorldTest.jar -C tests-target HelloWorldTest.class
