@@ -22,3 +22,7 @@ compile-tests:
 
 run: target/HelloWorld.jar
 	java -cp target/* HelloWorld
+
+clean:
+	rm -rf target tests-target
+
