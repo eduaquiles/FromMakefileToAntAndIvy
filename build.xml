@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="HelloWorld" basedir="." default="all">
+
+    <property name="src.dir" value="src"/>
+    <property name="test.src.dir" value="test"/>
+    <property name="target.dir" value="target"/>
+    <property name="test.target.dir" value="tests-target"/>
+
+    <target name="clean">
+        <delete dir="${target.dir}" />
+        <delete dir="${test.target.dir}" />
+    </target>
+    
+</project>
