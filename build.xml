@@ -5,10 +5,29 @@
     <property name="test.src.dir" value="test"/>
     <property name="target.dir" value="target"/>
     <property name="test.target.dir" value="tests-target"/>
+    <property name="test.project.name" value="${ant.project.name}Test" />
 
     <target name="clean">
         <delete dir="${target.dir}" />
         <delete dir="${test.target.dir}" />
     </target>
-    
+
+    <target name="compile-src">
+        <mkdir dir="${target.dir}" />
+        <javac srcdir="${src.dir}" destdir="${target.dir}" />
+    </target>
+
+    <target name="jar-src" depends="compile-src">
+        <jar destfile="${target.dir}/${ant.project.name}.jar" basedir="${target.dir}" excludes="*.jar">
+            <manifest>
+                <attribute name="Main-Class" value="${ant.project.name}" />
+            </manifest>
+        </jar>
+        <delete>
+            <fileset dir="${target.dir}">
+                <include name="*.class"/>
+            </fileset>
+        </delete>
+    </target>
+
 </project>
