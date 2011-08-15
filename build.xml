@@ -30,4 +30,11 @@
         </delete>
     </target>
 
+    <target name="dependencies">
+        <!--For now, will call 'make junit'. Will use Ivy later-->
+        <exec executable="make">
+            <arg value="junit"/>
+        </exec>
+    </target>
+
 </project>
