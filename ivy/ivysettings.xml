@@ -1,0 +1,30 @@
+<ivysettings>
+  <settings defaultResolver="chained"/>
+
+  <resolvers>             
+    <chain name="chained" returnFirst="true">
+      <filesystem name="libraries">
+        <artifact pattern="${ivy.conf.dir}/repository/[artifact]-[revision].[type]" />
+      </filesystem>
+      <url name="integratebutton">
+        <artifact pattern="http://www.integratebutton.com/repo/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+      </url>
+      <ibiblio name="ibiblio" m2compatible="true"/>
+      <url name="ibiblio-mirror">
+        <artifact pattern="http://mirrors.ibiblio.org/pub/mirrors/maven2/[organisation]/[module]/[branch]/[revision]/[branch]-[revision].[ext]" />
+      </url>
+      <url name="com.springsource.repository.bundles.release">
+          <ivy pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+          <artifact pattern="http://repository.springsource.com/ivy/bundles/release/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+      </url>
+      <url name="com.springsource.repository.bundles.external">
+          <ivy pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+          <artifact pattern="http://repository.springsource.com/ivy/bundles/external/[organisation]/[module]/[revision]/[artifact]-[revision].[ext]" />
+      </url>
+      <url name="jboss">
+          <artifact pattern="http://repository.jboss.com/maven2/javax/jms/[module]/[revision]/[module]-[revision].jar" />
+      </url>
+   
+    </chain>
+  </resolvers>
+</ivysettings>
