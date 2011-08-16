@@ -6,6 +6,7 @@
     <property name="target.dir" value="target"/>
     <property name="test.target.dir" value="tests-target"/>
     <property name="test.project.name" value="${ant.project.name}Test" />
+    <property name="lib.dir" value="lib"/>
 
     <target name="clean">
         <delete dir="${target.dir}" />
@@ -14,7 +15,7 @@
 
     <target name="compile-src">
         <mkdir dir="${target.dir}" />
-        <javac srcdir="${src.dir}" destdir="${target.dir}" />
+        <javac srcdir="${src.dir}" destdir="${target.dir}" includeantruntime="false" />
     </target>
 
     <target name="jar-src" depends="compile-src">
@@ -36,5 +37,51 @@
             <arg value="junit"/>
         </exec>
     </target>
+
+    <target name="compile-tests" depends="dependencies, jar-src">
+        <mkdir dir="${test.target.dir}" />
+        <javac srcdir="${test.src.dir}" destdir="${test.target.dir}" classpathref="test.classpath" includeantruntime="false"/>
+    </target>
+
+    <target name="jar-tests" depends="compile-tests">
+        <jar destfile="${test.target.dir}/${test.project.name}.jar" basedir="${test.target.dir}" excludes="*.jar" />
+        <delete>
+            <fileset dir="${test.target.dir}">
+                <include name="*.class"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <path id="test.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${target.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+        <fileset dir="${test.target.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="run-tests" depends="jar-tests">
+        <junit fork="yes" haltonfailure="yes">
+            <formatter type="plain" usefile="false" />
+            <classpath refid="test.classpath" />
+            <test name="${test.project.name}"/>
+        </junit>
+    </target>
+
+    <path id="classpath">
+        <fileset dir="${target.dir}">
+            <include name="**/*.jar"/>
+        </fileset>
+    </path>
+
+    <target name="run">
+        <java classpathref="classpath" fork="true" jar="${target.dir}/${ant.project.name}.jar"/>
+    </target>
+
+    <target name="all" depends="run-tests, run"/>
 
 </project>
